@@ -6,13 +6,11 @@
     position: fixed;
     background-color: #abc;
     left: 600px;
-    top:400px;
     height: 20px;
     margin: 5px;
   }
 </style>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
 </head>
 
 <body>
@@ -28,15 +26,13 @@
 </style>
 
 <div id="divblock" class="block">
-    <span id="interim_span" class="final"></span>
+    <span id="interim_span" class="final">hello world</span>
 </div>
 
 <script type="text/javascript">
-/*
+
   $( ".block" ).animate({ "left": "-=50px" }, "slow" );
   $( ".block" ).animate({ "left": "-=100px" }, "slow" );
-*/
-
 
 var SpeechToText=function(callback,callbackForSenEnd){
   var recognizing = false;
@@ -119,24 +115,11 @@ var SpeechToText=function(callback,callbackForSenEnd){
   }
 }
 
-var dataLength=0;
-var dataLChange=0;
+
 var TextResult=function(){
 		SpeechToText(function(data){
         interim_span.innerHTML = data;
-        if(data.length!=0){
-          dataLChange=data.length-dataLength;
-          dataLength=data.length;
-          if(dataLChange>0){
-              $( ".block" ).animate({ "left": "-="+dataLChange*15+"px" }, "slow" );
-          }
-        }
-
-  	   },function(){
-        //alert("");
-
-        dataLength=0;
-     }
+  	   },function(){alert("");}
     );
 }
 
