@@ -2658,6 +2658,26 @@ evowidget.KaigiWidget = function(config, success, error) {
                 self.page.undoLast();
                 evt.item.setActive(false);
                 //                self.getMenu().setActive(false, 'btnundolast');   //Alternative way
+            } else
+            if (evt.id === "btn-slide-show") {
+                //TODO 
+                alert("TO BE IMPLEMENT")
+                evt.item.setActive(false);
+            } else
+            if (evt.id === "btn-slide-show-upload") {
+                //TODO 
+                alert("TO BE IMPLEMENT")
+                evt.item.setActive(false);
+            } else
+            if (evt.id === "btn-slide-show-prev") {
+                //TODO 
+                alert("TO BE IMPLEMENT")
+                evt.item.setActive(false);
+            } else
+            if (evt.id === "btn-slide-show-next") {
+                //TODO 
+                alert("TO BE IMPLEMENT")
+                evt.item.setActive(false);
             }
         }
     }; // end Tab class
