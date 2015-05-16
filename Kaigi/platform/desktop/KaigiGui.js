@@ -647,4 +647,36 @@ evowidget.kaigiwidget.KaigiGui = function(config, resultHandler) {
         evoappfwk.EventBus.notify(positionEvent);
     }
 
+    this.updateSubtitle = function(text) {}
+    var danmakuList = {}
+    this.updateDanmaku = function(danmakuId, text) {
+        if (danmakuList[danmakuId] === undefined) {
+            var danmakuElement =
+                '<div id="kaigi_danmaku_%danmakuId%" class="kaigi_danmaku">%text%</div>';
+            danmakuElement = danmakuElement.replace(/%danmakuId%/g, danmakuId);
+            danmakuElement = danmakuElement.replace(/%text%/g, text);
+            $('#kaigi_subtitle_layer' + tagId).append(danmakuElement);
+            $('#kaigi_danmaku_' + danmakuId).css("left", $('#kaigi_subtitle_layer' + tagId).width() + 'px');
+            var line = 0;
+            var occupy = {};
+            for (var danmakuId in danmakuList) {
+                danmakuObj = $('#kaigi_danmaku_' + danmakuId);
+                if (danmakuObj.offset().left + danmakuObj.width() > $('#kaigi_subtitle_layer' + tagId).offset().left) {
+                    occupy[danmakuList[danmakuId]] = true;
+                }
+            }
+            while (occupy[line] === undefined) line++;
+            $('#kaigi_danmaku_' + danmakuId).css("top", (line * 60 + 30) + 'px');
+        } else {
+            $('#kaigi_danmaku_' + danmakuId).text(text);
+        }
+    }
+    this.scrollDanmaku = function(danmakuId) {
+            $('#kaigi_danmaku_' + danmakuId).animate({
+                left: '-=50px',
+            },'slow',function(){
+                this.scrollDanmaku(danmakuId);
+            });
+    }
+
 };
