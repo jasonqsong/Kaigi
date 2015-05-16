@@ -17,23 +17,17 @@
 
 <style >
   .final {
-    color: black;
-    padding-right: 3px; 
+     color: black;
+     padding-right: 3px; 
   }
-
-
-
 </style>
 
 <div id="divblock" class="block">
-    <span id="interim_span" class="final"></span>
+  <span id="interim_span" class="final"></span>
 </div>
 
 <script type="text/javascript">
-/*
-  $( ".block" ).animate({ "left": "-=50px" }, "slow" );
-  $( ".block" ).animate({ "left": "-=100px" }, "slow" );
-*/
+
 var SpeechToText=function(callback,callbackForSenEnd){
   var recognizing = false;
   var ignore_onend;
@@ -127,8 +121,9 @@ var TextResult=function(){
               $( ".block" ).animate({ "left": "-="+dataLChange*15+"px" }, "slow" );
           }
         }
-
-  	   },function(){alert("");}
+  	   },function(){
+        alert("");//the sentence is finished.
+    }
     );
 }
 
