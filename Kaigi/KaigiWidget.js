@@ -23,7 +23,7 @@ evowidget.KaigiWidget = function(config, success, error) {
     evoappfwk.Logger.log("KaigiWidget", "Constructor started.. File: " + config.className + ".js", evoappfwk.Logger.MODULE);
     config.widgetFileName = config.className + ".js";
     evoappfwk.GuiWidget.apply(this, [config]);
-
+    var selfWidget = this;
     var self = this,
         instanceId = config.instanceId,
         kaigiWidgetId = this.getId(),
@@ -62,6 +62,8 @@ evowidget.KaigiWidget = function(config, success, error) {
         deleteTabAndroid,
         readjustTabs,
         queue = [];
+
+    var danmakuHash;
 
     var queueImage = new jsutils.ConditionalAsyncTaskQueue();
 
@@ -701,6 +703,32 @@ evowidget.KaigiWidget = function(config, success, error) {
                     }
                 }
             };
+
+            self.danmakuHash = new DSM.HashReplica("kaigi_danmaku_");
+            environment.dsm.attachChild([self.danmakuHash],
+                function() {
+                    self.danmakuHash.update = function(op) {
+                            switch (op.type) {
+                                case DSM.Operation.ADD:
+                                case DSM.Operation.SET:
+                                    {
+                                        var danmakuId = op.key;
+                                        gui.updateDanmaku(op.key, op.value);
+                                        break;
+                                    }
+                            }
+                        }
+                        
+                        self.danmakuHash.remoteupdate = function(op) {
+                            switch (op.type) {
+                                case DSM.Operation.ADD:
+                                case DSM.Operation.SET:
+                                    break;
+                            }
+                        }
+                        
+                }
+            );
         }
         //end of result handler
 
@@ -1086,8 +1114,8 @@ evowidget.KaigiWidget = function(config, success, error) {
             canvasWidth = spaceContent.clientWidth;
             canvasHeight = spaceContent.clientHeight;
         } else {
-            canvasWidth = 360; //800px set by defaulr, changed to 100%;
-            canvasHeight = 500; //800px set by defaulr, changed to 100%;
+            canvasWidth = 800; //800px set by defaulr, changed to 100%;
+            canvasHeight = 600; //800px set by defaulr, changed to 100%;
             //HD dimension removed! can be restored from WBPanelHD
         }
 
@@ -1996,15 +2024,15 @@ evowidget.KaigiWidget = function(config, success, error) {
             //dsm.attachChild([currentPathsDSMList, currentHighlightsDSMHash, hash], function () {
             var i;
             /* TODO
-        if (!self.imageUrl)
-          self.imageUrl = hash.get("imageUrl");
-        else {
-          if (!hash.get("imageUrl")) {
-            hash.set("imageUrl", self.imageUrl);
-            hash.commit();
-          }
-        }
-        */
+            if (!self.imageUrl)
+              self.imageUrl = hash.get("imageUrl");
+            else {
+              if (!hash.get("imageUrl")) {
+                hash.set("imageUrl", self.imageUrl);
+                hash.commit();
+              }
+            }
+            */
             initialize();
 
             var tempColor = hash.get("changeBackgroundColorDiv");
@@ -2661,7 +2689,8 @@ evowidget.KaigiWidget = function(config, success, error) {
             } else
             if (evt.id === "btn-slide-show") {
                 //TODO 
-                alert("TO BE IMPLEMENT")
+                //alert("TO BE IMPLEMENT")
+                selfWidget.updateDanmaku("as;leifjs");
                 evt.item.setActive(false);
             } else
             if (evt.id === "btn-slide-show-upload") {
@@ -2779,6 +2808,15 @@ evowidget.KaigiWidget = function(config, success, error) {
         tab.addMenu(contextMenu, contextMenuTag, contextMenuContainerTag);
     }
 
+
+    this.updateDanmaku = function(text) {
+        var danmakuId = this.genRandomId();
+        self.danmakuHash.set(danmakuId, text);
+        self.danmakuHash.commit();
+    }
+    this.genRandomId = function() {
+        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    }
 }
 
 evowidget.KaigiWidget.prototype.constructor = evowidget.KaigiWidget;

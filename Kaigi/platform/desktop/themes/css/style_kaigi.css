@@ -47,10 +47,13 @@
 .wbCloseIconDiv 
 .wb_close_icon{height:1
 .2em;width:1
-.2em;content:url(
-.
-./
-.
-./themes/img/retina/wb_menu_close
-.png);}
+.2em;content:url(../../themes/img/retina/wb_menu_close.png);}
 .wb_canvaspanel{position:relative}
+.kaigi_danmaku_layer{
+    position: relative;
+}
+.kaigi_danmaku{
+    position: absolute;
+    color: black;
+    z-index: 5000;
+}

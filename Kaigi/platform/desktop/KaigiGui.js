@@ -652,31 +652,36 @@ evowidget.kaigiwidget.KaigiGui = function(config, resultHandler) {
     this.updateDanmaku = function(danmakuId, text) {
         if (danmakuList[danmakuId] === undefined) {
             var danmakuElement =
-                '<div id="kaigi_danmaku_%danmakuId%" class="kaigi_danmaku">%text%</div>';
+                '<div id="kaigi_danmaku_%tagId%_%danmakuId%" class="kaigi_danmaku">%text%</div>';
+            danmakuElement = danmakuElement.replace(/%tagId%/g, tagId);
             danmakuElement = danmakuElement.replace(/%danmakuId%/g, danmakuId);
             danmakuElement = danmakuElement.replace(/%text%/g, text);
             $('#kaigi_subtitle_layer' + tagId).append(danmakuElement);
-            $('#kaigi_danmaku_' + danmakuId).css("left", $('#kaigi_subtitle_layer' + tagId).width() + 'px');
+            $('#kaigi_danmaku_' + tagId + '_' + danmakuId).css("left", $('#kaigi_subtitle_layer' + tagId).width() + 'px');
             var line = 0;
             var occupy = {};
-            for (var danmakuId in danmakuList) {
-                danmakuObj = $('#kaigi_danmaku_' + danmakuId);
-                if (danmakuObj.offset().left + danmakuObj.width() > $('#kaigi_subtitle_layer' + tagId).offset().left) {
-                    occupy[danmakuList[danmakuId]] = true;
+            for (var danmaku in danmakuList) {
+                danmakuObj = $('#kaigi_danmaku_' + tagId + '_' + danmaku);
+                if (danmakuObj.offset().left + danmakuObj.width() > $('#kaigi_danmaku_layer' + tagId).offset().left) {
+                    occupy[danmakuList[danmaku]] = true;
                 }
             }
-            while (occupy[line] === undefined) line++;
-            $('#kaigi_danmaku_' + danmakuId).css("top", (line * 60 + 30) + 'px');
+            while (occupy[line] !== undefined) line++;
+            danmakuList[danmakuId] = line;
+            $('#kaigi_danmaku_' + tagId + '_' + danmakuId).css("top", (line * 30 + 30) + 'px');
+            this.scrollDanmaku(danmakuId);
         } else {
-            $('#kaigi_danmaku_' + danmakuId).text(text);
+            $('#kaigi_danmaku_' + tagId + '_' + danmakuId).text(text);
         }
     }
     this.scrollDanmaku = function(danmakuId) {
-            $('#kaigi_danmaku_' + danmakuId).animate({
-                left: '-=50px',
-            },'slow',function(){
-                this.scrollDanmaku(danmakuId);
-            });
+        $('#kaigi_danmaku_' + tagId + '_' + danmakuId).animate({
+            left: '-=40px',
+        }, 'slow', function() {
+            var danmakuObj=$('#kaigi_danmaku_' + tagId + '_' + danmakuId);
+            if (danmakuObj.offset().left + danmakuObj.width() > 0)
+                self.scrollDanmaku(danmakuId);
+        });
     }
 
 };

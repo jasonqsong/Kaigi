@@ -5,10 +5,10 @@ evowidget.kaigiwidget.KaigiHtml = function(config) {
     html = 
 '<div id="kaigi_body_' + config.tagId + '" class="kaigi_body">' + // main widget contents area (with menus)
     // add danmaku layer
-    '<div id=kaigi_danmaku_layer'+ config.tagId+ '" class="kaigi_danmaku_layer">' +
+    '<div id="kaigi_danmaku_layer'+ config.tagId+ '" class="kaigi_danmaku_layer">' +
     '</div>' +
     // add danmaku layer
-    '<div id=kaigi_subtitle_layer'+ config.tagId+ '" class="kaigi_subtitle_layer">' +
+    '<div id="kaigi_subtitle_layer'+ config.tagId+ '" class="kaigi_subtitle_layer">' +
     '</div>' +
     // widget control buttons
     '<div id="wb_add_menu_btn_' + config.tagId + '" class="widget_add_menu_btn">' +
