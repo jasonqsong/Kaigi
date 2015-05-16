@@ -1,0 +1,56 @@
+
+.kaigi_sweetblue{background-color:#00c9ff}
+.kaigi_lightblue{background-color:#5fdcfe}
+.kaigi_lightblack{background-color:#3b3b3b}
+.kaigi_black{background-color:#000}
+.kaigi_inactive_gray{background-color:#ccc}
+.kaigi_inactive_darkgray{background-color:#aaa}
+.kaigi_inactive_lightgray{background-color:#eee}
+.kaigi_body{position:relative;display:block;top:0;left:0;min-width:300px;min-height:300px;background-color:inherit;font-family:'Roboto',sans-serif}
+.widget_add_menu_btn{position:absolute;top:2
+.1em;left:
+.2em;z-index:15;background-color:inherit}
+.wb_tool_menu_btn{position:absolute;top:2
+.1em;right:
+.2em;z-index:15;background-color:inherit}
+.wb_control_icon{width:1
+.5em;height:1
+.5em}
+.wb_context_menus{display:block;width:0px;position:absolute;top:30px;bottom:0;right:0;z-index:15}canvas{width:100%;height:100%}
+.wb_tab_table{position:relative;display:block;width:100%;height:1
+.2em;text-align:center;border-collapse:collapse;-webkit-border-radius:5px}
+.wbtab{width:30px;height:100%;border-top:1px solid #00c9ff;border-left:1px solid #00c9ff;float:left;background-color:#ddd;cursor:pointer;padding-top:5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-webkit-user-select:none;font-size:
+.875em}
+.wbtabSelected{background-color:#00c9ff;border-top:1px solid #ddd;border-left:1px solid #ddd;font-weight:bold}
+.wb_tabs_bar{width:100%;display:inline-flex}
+.wb_tabs_container{display:inline-flex;width:100%}
+.wb_tab_nav_box_active{display:inline-block}
+.wb_tab_nav_box_inactive{display:none}
+.wb_tab_nav_backward_box{float:left;margin-right:3px}
+.wb_tab_nav_backward{position:relative;width:0;height:0;top:2px;border-top:
+.7em solid transparent;border-bottom:
+.7em solid transparent;border-right:
+.7em solid #fff;margin:auto}
+.wb_tab_nav_forward_box{float:right;margin-left:2px}
+.wb_tab_nav_forward{position:relative;width:0;height:0;top:2px;border-top:
+.7em solid transparent;border-bottom:
+.7em solid transparent;border-left:
+.7em solid #fff;margin:auto}
+.tabsSeparator{position:relative;display:block;background-color:#00c9ff;height:
+.3em}
+.wbTitleDiv{display:inline-block;position:relative;float:left;text-align:left;padding-left:
+.2em}
+.wbCloseIconDiv{display:inline-block;float:right;padding-top:2px;padding-right:
+.2em;height:1
+.2em;width:1
+.2em;z-index:1}
+.wbCloseIconDiv 
+.wb_close_icon{height:1
+.2em;width:1
+.2em;content:url(
+.
+./
+.
+./themes/img/retina/wb_menu_close
+.png);}
+.wb_canvaspanel{position:relative}

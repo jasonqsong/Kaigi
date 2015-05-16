@@ -1,0 +1,32 @@
+startup:
+
+evowidget.MessengerWidget
+
+evowidget.MessengerWidget.init()
+<- evowidget.MessengerGui
+
+evowidget.MessengerGui.init()
+<- MessengerGui.createMessengerWindow()
+<- onsuccess() (evowidget.MessengerWidget.guiCreated)
+<- MessengerGui.show()
+
+MessengerGui.createMessengerWindow()
+<-MessengerGui.show()
+
+MessengerGui.getPosition()
+
+MessengerGui.setPosition()
+
+MessengerGui.getZIndex
+
+MessengerGui.getPosition()
+MessengerGui.setPosition()
+
+
+Close:
+gui.onWindowClose
+<-gui.hide
+<-widget.quit
+
+widget.quit
+<-gui.remove
