@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<script type="text/javascript">
+	var asyncfunc=function(callback){
+		setTimeout(function(){
+			callback("123");
+		},5000);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	var data2;
+
+	var syncfunc(){
+		setTimeout(function(){
+			data2=123;
+		},5000);
+	}
+
+
+	var callbackdemo_callbackfunc(data){
+
+		alert(data);
+	}
+
+
+
+	var callbackdemo=function(){
+		syncfunc()
+		while(data2!=undefined);
+		alert(data2);
+
+		asyncfunc(callbackdemo_callbackfunc);
+	}
+</script>
+
+<input type="button" onclick="callbackdemo()">
+</body>
+</html>
