@@ -207,6 +207,46 @@ evowidget.kaigiwidget.KaigiMenu = (function() {
                     active: resourcePath + '/undo.png',
                     inactive: resourcePath + '/undo.png'
                 }
+            },
+            {
+                id: "btn-slide-show",
+                name: "btn-slide-show",
+                type: evoappfwk.MenuFactory.BUTTON,
+                icons: {
+                    standard: resourcePath + '/wb_eraser.png',
+                    active: resourcePath + '/wb_eraser.png',
+                    inactive: resourcePath + '/wb_eraser.png'
+                },
+                soleRight: true,
+
+                submenu: [{
+                    id: "btn-slide-show-upload",
+                    name: "btn-slide-show-upload",
+                    type: evoappfwk.MenuFactory.BUTTON,
+                    icons: {
+                        standard: resourcePath + '/wb_erasersize.png',
+                        active: resourcePath + '/wb_erasersize.png',
+                        inactive: resourcePath + '/wb_erasersize.png'
+                    }
+                }, {
+                    id: "btn-slide-show-prev",
+                    name: "btn-slide-show-prev",
+                    type: evoappfwk.MenuFactory.BUTTON,
+                    icons: {
+                        standard: resourcePath + '/erase_all.png',
+                        active: resourcePath + '/erase_all.png',
+                        inactive: resourcePath + '/erase_all.png'
+                    }
+                }, {
+                    id: "btn-slide-show-next",
+                    name: "btn-slide-show-next",
+                    type: evoappfwk.MenuFactory.BUTTON,
+                    icons: {
+                        standard: resourcePath + '/erase_all.png',
+                        active: resourcePath + '/erase_all.png',
+                        inactive: resourcePath + '/erase_all.png'
+                    }
+                }]
             }
         ];
 
