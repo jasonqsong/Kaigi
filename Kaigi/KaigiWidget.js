@@ -708,25 +708,25 @@ evowidget.KaigiWidget = function(config, success, error) {
             environment.dsm.attachChild([self.danmakuHash],
                 function() {
                     self.danmakuHash.update = function(op) {
-                            switch (op.type) {
-                                case DSM.Operation.ADD:
-                                case DSM.Operation.SET:
-                                    {
-                                        var danmakuId = op.key;
-                                        gui.updateDanmaku(op.key, op.value);
-                                        break;
-                                    }
-                            }
-                        }
-                        
-                        self.danmakuHash.remoteupdate = function(op) {
-                            switch (op.type) {
-                                case DSM.Operation.ADD:
-                                case DSM.Operation.SET:
+                        switch (op.type) {
+                            case DSM.Operation.ADD:
+                            case DSM.Operation.SET:
+                                {
+                                    var danmakuId = op.key;
+                                    gui.updateDanmaku(op.key, op.value);
                                     break;
-                            }
+                                }
                         }
-                        
+                    }
+
+                    self.danmakuHash.remoteupdate = function(op) {
+                        switch (op.type) {
+                            case DSM.Operation.ADD:
+                            case DSM.Operation.SET:
+                                break;
+                        }
+                    }
+
                 }
             );
         }
@@ -2689,8 +2689,14 @@ evowidget.KaigiWidget = function(config, success, error) {
             } else
             if (evt.id === "btn-slide-show") {
                 //TODO 
-                //alert("TO BE IMPLEMENT")
-                selfWidget.updateDanmaku("as;leifjs");
+                var moelist = [
+                    'moe',
+                    'lol',
+                    ':)',
+                    'T_T'
+                ];
+                selfWidget.updateDanmaku(moelist[parseInt(4 * Math.random())]);
+                selfWidget.setupSpeechToText();
                 evt.item.setActive(false);
             } else
             if (evt.id === "btn-slide-show-upload") {
@@ -2809,14 +2815,116 @@ evowidget.KaigiWidget = function(config, success, error) {
     }
 
 
-    this.updateDanmaku = function(text) {
-        var danmakuId = this.genRandomId();
+    this.updateDanmaku = function(danmakuId,text) {
         self.danmakuHash.set(danmakuId, text);
         self.danmakuHash.commit();
     }
     this.genRandomId = function() {
-        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        return remoteUserId + Math.random().toString(36).substring(2, 15);
     }
+
+    var lastSpeechText='';
+    var danmakuId;
+    this.setupSpeechToText=function(){
+        self.SpeechToText(function(text){
+            if(text=='')
+                danmakuId = self.genRandomId();
+            self.updateDanmaku(danmakuId,text);
+            if(text.length<lastSpeechText.length-10){
+                danmakuId = self.genRandomId();
+            }
+            lastSpeechText=text;
+        });
+    }
+
+    this.SpeechToText = function(callback, callbackForSenEnd) {
+        var recognizing = false;
+        var ignore_onend;
+        var start_timestamp;
+        var final_transcript = "";
+        if (!('webkitSpeechRecognition' in window)) {
+            upgrade();
+        } else {
+            var recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onstart = function() {
+                recognizing = true;
+            };
+
+            if (recognizing) {
+                recognition.stop();
+                return;
+            }
+
+            recognition.lang = 'en-US';
+            recognition.start();
+            ignore_onend = false;
+
+            recognition.onerror = function(event) {
+                // can give some alart for microphone status.
+            };
+
+            recognition.onend = function() {
+                recognizing = false;
+                if (ignore_onend) {
+                    return;
+                }
+                if (!final_transcript) {
+                    return;
+                }
+
+                if (window.getSelection) {
+                    window.getSelection().removeAllRanges();
+                    var range = document.createRange();
+                    window.getSelection().addRange(range);
+                }
+            };
+
+            recognition.onresult = function(event) {
+                var interim_transcript = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        final_transcript += event.results[i][0].transcript;
+                    } else {
+                        interim_transcript += event.results[i][0].transcript;
+                    }
+                }
+
+                final_transcript = capitalize(final_transcript);
+
+                if (final_transcript != "") {
+                    final_transcript = "";
+                    if(callbackForSenEnd!==undefined)
+                        callbackForSenEnd() ;
+                }
+                if(callback!==undefined)
+                    callback(linebreak(interim_transcript));
+            };
+        }
+
+        function upgrade() {
+            //can show notification for user to update the microphone
+        }
+
+        var two_line = /\n\n/g;
+        var one_line = /\n/g;
+
+        function linebreak(s) {
+            return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+        }
+
+        var first_char = /\S/;
+
+        function capitalize(s) {
+            return s.replace(first_char, function(m) {
+                return m.toUpperCase();
+            });
+        }
+    }
+
+
 }
 
 evowidget.KaigiWidget.prototype.constructor = evowidget.KaigiWidget;

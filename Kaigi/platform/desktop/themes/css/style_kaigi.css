@@ -56,4 +56,5 @@
     position: absolute;
     color: black;
     z-index: 5000;
+    width:auto;
 }
