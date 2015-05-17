@@ -1197,7 +1197,7 @@ evowidget.KaigiWidget = function(config, success, error) {
                 var currentPathsIds = Object.keys(currentPaths);
                 for (i = 0; i < currentPathsIds.length; i++) {
                     var path = currentPaths[currentPathsIds[i]];
-                    delete currentPaths[currentPathsIds[i]];
+                    //delete currentPaths[currentPathsIds[i]];
                     path.detachFromDSM(false);
                 }
                 environment.dsm.detachChild(currentPathsDSMList);
@@ -2625,7 +2625,8 @@ evowidget.KaigiWidget = function(config, success, error) {
         }
 
 
-
+        this.imagelist=new Array();
+        this.imageindex=0;
         /**
          * Function receives the actions from the ContextMenu
          */
@@ -2680,6 +2681,8 @@ evowidget.KaigiWidget = function(config, success, error) {
                 startHighlight();
             } else
             if (evt.id === "btnaddphoto") {
+                self.imagelist.push(evt.data);
+                self.imageindex=self.imagelist.length-1;
                 self.page.drawImageFromReader(evt.data);
             } else
             if (evt.id === "btnundolast") { //code == "UNDO_LAST") {
@@ -2687,7 +2690,7 @@ evowidget.KaigiWidget = function(config, success, error) {
                 evt.item.setActive(false);
                 //                self.getMenu().setActive(false, 'btnundolast');   //Alternative way
             } else
-            if (evt.id === "btn-slide-show") {
+            if (evt.id === "btn-speech-danmaku") {
                 //TODO 
                 var moelist = [
                     'moe',
@@ -2705,13 +2708,19 @@ evowidget.KaigiWidget = function(config, success, error) {
                 evt.item.setActive(false);
             } else
             if (evt.id === "btn-slide-show-prev") {
-                //TODO 
-                alert("TO BE IMPLEMENT")
+                self.imageindex--;
+                if(self.imageindex<0)
+                    self.imageindex=0;
+                if(self.imagelist[self.imageindex]!==undefined)
+                    self.page.drawImageFromReader(self.imagelist[self.imageindex]);
                 evt.item.setActive(false);
             } else
             if (evt.id === "btn-slide-show-next") {
-                //TODO 
-                alert("TO BE IMPLEMENT")
+                self.imageindex++;
+                if(self.imageindex>=self.imagelist.length)
+                    self.imageindex=self.imagelist.length-1;
+                if(self.imagelist[self.imageindex]!==undefined)
+                    self.page.drawImageFromReader(self.imagelist[self.imageindex]);
                 evt.item.setActive(false);
             }
         }
@@ -2825,11 +2834,19 @@ evowidget.KaigiWidget = function(config, success, error) {
 
     var lastSpeechText='';
     var danmakuId;
+    var cutoff=0;
     this.setupSpeechToText=function(){
         self.SpeechToText(function(text){
-            if(text=='')
+            if(text==''){
                 danmakuId = self.genRandomId();
-            self.updateDanmaku(danmakuId,text);
+                cutoff=0;
+            }
+            if(text.length>cutoff+130){
+                self.updateDanmaku(danmakuId,text.substr(cutoff,100));
+                cutoff=cutoff+100;
+                danmakuId = self.genRandomId();
+            }
+            self.updateDanmaku(danmakuId,text.substr(cutoff));
             if(text.length<lastSpeechText.length-10){
                 danmakuId = self.genRandomId();
             }

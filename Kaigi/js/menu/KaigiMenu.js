@@ -83,6 +83,44 @@ evowidget.kaigiwidget.KaigiMenu = (function() {
             },
             */
             {
+                id: "btn-speech-danmaku",
+                name: "btn-speech-danmaku",
+                type: evoappfwk.MenuFactory.BUTTON,
+                icons: {
+                    standard: resourcePath + '/microphone.png',
+                    active: resourcePath + '/microphone.png',
+                    inactive: resourcePath + '/microphone.png'
+                },
+                soleRight: true,
+            }, {
+                id: "btnaddphoto",
+                name: "btnaddphoto",
+                type: evoappfwk.MenuFactory.PICTURE,
+                icons: {
+                    standard: resourcePath + '/slides.png',
+                    active: resourcePath + '/slides.png',
+                    inactive: resourcePath + '/slides.png'
+                },
+                soleRight: true
+            }, {
+                id: "btn-slide-show-prev",
+                name: "btn-slide-show-prev",
+                type: evoappfwk.MenuFactory.BUTTON,
+                icons: {
+                    standard: resourcePath + '/arrow_up.png',
+                    active: resourcePath + '/arrow_up.png',
+                    inactive: resourcePath + '/arrow_up.png'
+                }
+            }, {
+                id: "btn-slide-show-next",
+                name: "btn-slide-show-next",
+                type: evoappfwk.MenuFactory.BUTTON,
+                icons: {
+                    standard: resourcePath + '/arrow_down.png',
+                    active: resourcePath + '/arrow_down.png',
+                    inactive: resourcePath + '/arrow_down.png'
+                }
+            }, {
                 id: "btnbrush",
                 name: "btnbrush",
                 type: evoappfwk.MenuFactory.BUTTON,
@@ -189,16 +227,6 @@ evowidget.kaigiwidget.KaigiMenu = (function() {
                 },
                 soleRight: true
             }, {
-                id: "btnaddphoto",
-                name: "btnaddphoto",
-                type: evoappfwk.MenuFactory.PICTURE,
-                icons: {
-                    standard: resourcePath + '/photo.png',
-                    active: resourcePath + '/photo.png',
-                    inactive: resourcePath + '/photo.png'
-                },
-                soleRight: true
-            }, {
                 id: "btnundolast",
                 name: "btnundolast",
                 type: evoappfwk.MenuFactory.BUTTON,
@@ -207,46 +235,6 @@ evowidget.kaigiwidget.KaigiMenu = (function() {
                     active: resourcePath + '/undo.png',
                     inactive: resourcePath + '/undo.png'
                 }
-            },
-            {
-                id: "btn-slide-show",
-                name: "btn-slide-show",
-                type: evoappfwk.MenuFactory.BUTTON,
-                icons: {
-                    standard: resourcePath + '/wb_eraser.png',
-                    active: resourcePath + '/wb_eraser.png',
-                    inactive: resourcePath + '/wb_eraser.png'
-                },
-                soleRight: true,
-
-                submenu: [{
-                    id: "btn-slide-show-upload",
-                    name: "btn-slide-show-upload",
-                    type: evoappfwk.MenuFactory.BUTTON,
-                    icons: {
-                        standard: resourcePath + '/wb_erasersize.png',
-                        active: resourcePath + '/wb_erasersize.png',
-                        inactive: resourcePath + '/wb_erasersize.png'
-                    }
-                }, {
-                    id: "btn-slide-show-prev",
-                    name: "btn-slide-show-prev",
-                    type: evoappfwk.MenuFactory.BUTTON,
-                    icons: {
-                        standard: resourcePath + '/erase_all.png',
-                        active: resourcePath + '/erase_all.png',
-                        inactive: resourcePath + '/erase_all.png'
-                    }
-                }, {
-                    id: "btn-slide-show-next",
-                    name: "btn-slide-show-next",
-                    type: evoappfwk.MenuFactory.BUTTON,
-                    icons: {
-                        standard: resourcePath + '/erase_all.png',
-                        active: resourcePath + '/erase_all.png',
-                        inactive: resourcePath + '/erase_all.png'
-                    }
-                }]
             }
         ];
 
