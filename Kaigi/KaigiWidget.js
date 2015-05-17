@@ -2698,7 +2698,7 @@ evowidget.KaigiWidget = function(config, success, error) {
                     ':)',
                     'T_T'
                 ];
-                selfWidget.updateDanmaku(moelist[parseInt(4 * Math.random())]);
+                selfWidget.updateDanmaku('status',moelist[parseInt(4 * Math.random())]);
                 selfWidget.setupSpeechToText();
                 evt.item.setActive(false);
             } else
@@ -2829,7 +2829,7 @@ evowidget.KaigiWidget = function(config, success, error) {
         self.danmakuHash.commit();
     }
     this.genRandomId = function() {
-        return remoteUserId + Math.random().toString(36).substring(2, 15);
+        return (new Date()).getTime()+ Math.random().toString(36).substring(2, 15);
     }
 
     var lastSpeechText='';
@@ -2849,6 +2849,7 @@ evowidget.KaigiWidget = function(config, success, error) {
             self.updateDanmaku(danmakuId,text.substr(cutoff));
             if(text.length<lastSpeechText.length-10){
                 danmakuId = self.genRandomId();
+                cutoff=0;
             }
             lastSpeechText=text;
         });

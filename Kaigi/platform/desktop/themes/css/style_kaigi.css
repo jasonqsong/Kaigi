@@ -197,9 +197,9 @@ canvas {
 
 .kaigi_danmaku {
     position: absolute;
-    font: 2em;
+    font-size: 1.5em;
     z-index: 5000;
-    width: 800px;
+    width: 1000px;
     color: white;
     -webkit-text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
     -moz-text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;

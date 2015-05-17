@@ -662,7 +662,7 @@ evowidget.kaigiwidget.KaigiGui = function(config, resultHandler) {
             var occupy = {};
             for (var danmaku in danmakuList) {
                 danmakuObj = $('#kaigi_danmaku_' + tagId + '_' + danmaku);
-                if (danmakuObj.offset().left + danmakuObj.width() > $('#kaigi_danmaku_layer' + tagId).offset().left) {
+                if (danmakuObj.offset().left + danmakuObj.width() > $('#kaigi_danmaku_layer' + tagId).offset().left+$('#kaigi_danmaku_layer' + tagId).width()) {
                     occupy[danmakuList[danmaku]] = true;
                 }
             }
@@ -679,7 +679,7 @@ evowidget.kaigiwidget.KaigiGui = function(config, resultHandler) {
             left: '-=40px',
         }, 'slow', function() {
             var danmakuObj=$('#kaigi_danmaku_' + tagId + '_' + danmakuId);
-            if (danmakuObj.offset().left + danmakuObj.width() > 0)
+            if (danmakuObj.offset().left + danmakuObj.width() > -1000)
                 self.scrollDanmaku(danmakuId);
         });
     }
